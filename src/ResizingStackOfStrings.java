@@ -14,8 +14,10 @@ public class ResizingStackOfStrings {
         s[N++] = item;
     }
     public String pop() {
-        if (N == s.length/4) resize(s.length/2);
-        return s[--N];
+        String item = s[--N];
+        if (N>0 && N == s.length/4) resize(s.length/2);
+        s[N] = null;
+        return item;
     }
     private boolean isEmpty(){
         return N==0;
