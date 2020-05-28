@@ -1,20 +1,20 @@
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class ResizingStackOfStrings {
+public class ResizingStack<Item> {
 
     private int N = 0;
-    private String[] s;
+    private Item[] s;
 
-    public ResizingStackOfStrings(){
-        s = new String[1];
+    public ResizingStack(){
+        s = (Item[]) new Object[1];
     }
-    public void push(String item){
+    public void push(Item item){
         if( N == s.length) resize(s.length*2);
         s[N++] = item;
     }
-    public String pop() {
-        String item = s[--N];
+    public Item pop() {
+        Item item = s[--N];
         if (N>0 && N == s.length/4) resize(s.length/2);
         s[N] = null;
         return item;
@@ -24,14 +24,14 @@ public class ResizingStackOfStrings {
     }
 
     private void resize(int capacity){
-       String[] copy = new String[capacity];
+       Item[] copy = (Item[]) new Object[capacity];
        for (int i=0; i<N; i++)
            copy[i] = s[i];
        s=copy;
     }
 
     public static void main(String[] args) {
-        ResizingStackOfStrings stack = new ResizingStackOfStrings();
+        ResizingStack<String> stack = new ResizingStack<String>();
         while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
             if(s.equals("-")) StdOut.print(stack.pop()+ " ");

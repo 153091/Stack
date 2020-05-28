@@ -1,29 +1,30 @@
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class FixedStackOfStrings {
+public class FixedStack<Item> {
 
     private int N = 0;
-    private String[] s;
+    private Item[] s;
 
-    public FixedStackOfStrings(int capacity){
-        s = new String[capacity];
+    public FixedStack(int capacity){
+        s = (Item[]) new Object[capacity];
 
     }
-    public void push(String item){
+    public void push(Item item){
         s[N++] = item;
     }
-    public String pop() {
-        String item = s[--N];
+    public Item pop() {
+        Item item = s[--N];
         s[N] = null;
         return item;
     }
     private boolean isEmpty(){
         return N==0;
     }
+
     public static void main(String[] args) {
         int capacity = StdIn.readInt();
-        FixedStackOfStrings stack = new FixedStackOfStrings(capacity);
+        FixedStack<String> stack = new FixedStack<String>(capacity);
         while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
             if(s.equals("-")) StdOut.print(stack.pop()+ " ");
