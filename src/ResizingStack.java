@@ -1,7 +1,8 @@
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+import java.util.Iterator;
 
-public class ResizingStack<Item> {
+public class ResizingStack<Item> implements Iterable<Item> {
 
     private int N = 0;
     private Item[] s;
@@ -30,6 +31,15 @@ public class ResizingStack<Item> {
        s=copy;
     }
 
+    public Iterator<Item> iterator() {return new ArrayIterator();}
+
+    private class ArrayIterator implements Iterator<Item> {
+        private int i = N;
+
+        public boolean hasNext() { return i>0; }
+        public void remove() { throw new UnsupportedOperationException(); }
+        public Item next() { return s[--i]; }
+    }
     public static void main(String[] args) {
         ResizingStack<String> stack = new ResizingStack<String>();
         while (!StdIn.isEmpty()) {
@@ -37,5 +47,7 @@ public class ResizingStack<Item> {
             if(s.equals("-")) StdOut.print(stack.pop()+ " ");
             else stack.push(s);
         }
+        for (String s : stack)
+            System.out.println("Vot oni " +s);
     }
 }
